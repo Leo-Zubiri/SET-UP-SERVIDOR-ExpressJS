@@ -11,6 +11,27 @@ app.get('/about',(req,res) => {
 })
 
 // --------------------------------------------------
+app.use(express.json());
+
+app.post('/user',(req,res) => {
+    console.log(req.body);
+    res.send('POST Recibido');
+})
+
+app.all('/user',(req,res,next) => {
+    console.log('Petición a User');
+    res.send('Realizaste una petición a la ruta user');
+    next();
+})
+
+// --------------------------------------------------
+
+app.post('/user/:id',(req,res) => {
+    console.log(req.params);
+    res.send('POST Recibido');
+})
+
+// --------------------------------------------------
 
 app.get('/test',(req,res) => {  
     res.send('<h1>Test Método GET</h1>');

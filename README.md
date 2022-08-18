@@ -100,3 +100,60 @@ Instalar postman o bien instalar la extensión de VSCODE llamada ```Thunder clie
 **Se coloca el tipo de petición y la ruta a la cual va dirigida:**
 
 ![](./documentation/img/1.jpeg)
+
+---
+
+## **Response con un JSON**
+```JS
+app.get('/test',(req,res) => {  
+    res.json({
+        username: 'Leo',
+        lastname: 'Zubiri'
+    });
+})
+```
+
+## **Request con JSON**
+```JS
+app.use(express.json());
+
+app.post('/user',(req,res) => {
+    console.log(req.body);
+    res.send('POST Recibido');
+})
+```
+![](./documentation/img/2.jpeg)
+
+---
+
+## **Routing dinámico**
+Se coloca la ruta y posteriormente diagonal :variable.
+Para acceder a este se usa res.params
+
+```js
+app.post('/user/:id',(req,res) => {
+    console.log(req.params);
+    res.send('POST Recibido');
+})
+```
+
+![](./documentation/img/3.jpeg)
+
+
+---
+
+## **app.all**
+Hacer algo para determinadas rutas para cuando ocurra alguna petición get,post,put,delete. No importa el tipo de petición, siempre lo aplicará.
+
+```js
+app.all('/user',(req,res,next) => {
+    console.log('Petición a User');
+    res.send('Realizaste una petición a la ruta user');
+    next();
+})
+```
+
+---
+
+## **Middlewares**
+
