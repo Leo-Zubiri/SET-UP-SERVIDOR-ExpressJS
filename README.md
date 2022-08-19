@@ -157,3 +157,69 @@ app.all('/user',(req,res,next) => {
 
 ## **Middlewares**
 
+Funciones que son ejecutadas para cualquier ruta después de un request pero antes de otros middlewares hasta finalmente llegar al response. Funcionan para procesar datos antes de llegar a una ruta.
+
+Antes de pasar a cualquier ruta pasa por el siguiente middleware.
+```js
+function logger(req,res,next) {
+    console.log('Request recibida');
+    console.log(`Request a ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+
+    next();
+}
+
+app.use(logger);
+```
+
+## [Middleware Morgan](https://www.npmjs.com/package/morgan)
+
+Es un middleware alojado en npm con función de logger.
+
+```npm install morgan```
+
+```js
+const morgan = require('morgan');
+
+// Algun tipo de configuracion para el logger
+app.use(morgan('dev'));
+```
+Con lo anterior se desplegarán con un formato en la consola todas las peticiones que llegan y los estatus de resultado de esta.
+
+---
+
+<br>
+
+## **Express Static Files**
+
+Se encarga de retornar archivos estaticos al frontend
+Crear directorio, es convencional crear la carpeta "public" para archivos estáticos. Se puede crear archivos html,css y javascript
+
+![](./documentation/img/4.jpeg)
+
+```js
+
+// Se coloca al final de todas las rutas para que en caso de que no sea ninguna, cargue el contenido de public.
+app.use(express.static('public'));
+```
+
+## **Settings**
+Las configuraciones se establecen en una especie de variables:
+```js
+
+// VARIABLE, VALOR
+app.set('appName','Practicando Express');
+console.log(app.get('appName'));
+
+app.set('port',3000);
+app.get('port');
+```
+
+---
+
+## **Motores de templates(plantillas)**
+
+Express permite conectar diferentes motores de templates.
+Un motor de templates es simplemente texto que es procesado y convertido en html.
+
+Se envía un objeto con los datos llave:valor y este se renderiza en html. 
+Bastante útil para crear formatos de correo con mensajes personalizados pero diseños concretos.
