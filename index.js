@@ -8,7 +8,17 @@ function logger(req,res,next) {
 }
 
 app.set('appName','Practicando Express');
+app.set('view engine','ejs');
 
+
+app.get('/ejs', (req,res) => {
+    const data = [
+        {name: 'Leo', lastname: 'Zubiri'},
+        {name: 'Elideth', lastname: 'Zubiri'},
+        {name: 'Leoziel', lastname: 'Zubiri'}
+    ]
+    res.render('index.ejs',{people: data});
+});
 console.log(app.get('appName'));
 // Algun tipo de configuracion para el logger
 app.use(morgan('dev'));

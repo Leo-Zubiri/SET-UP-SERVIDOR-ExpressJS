@@ -216,10 +216,109 @@ app.get('port');
 
 ---
 
+<br>
+
 ## **Motores de templates(plantillas)**
 
 Express permite conectar diferentes motores de templates.
 Un motor de templates es simplemente texto que es procesado y convertido en html.
 
 Se envía un objeto con los datos llave:valor y este se renderiza en html. 
-Bastante útil para crear formatos de correo con mensajes personalizados pero diseños concretos.
+Bastante útil para crear formatos de correo con mensajes personalizados y diseños concretos.
+
+<br>
+
+### **EJS**
+
+Es un motor de plantillas muy popular para Express.
+Para instalar:
+
+```npm i ejs```
+
+Implementación:
+
+```js
+app.set('view engine','ejs');
+```
+
+1. Crear directorio **Views**
+2. Crear dentro del directorio un **index.ejs**
+3. Colocar contenido html pero con sintaxis agregada de EJS:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejs Template</title>
+</head>
+<body>
+
+    <h1> Resultado renderizado </h1>
+
+    <ul>
+        <% people.forEach(function (person){  %>
+            <li>  <%= person.name %>  </li>
+        <% }) %>
+    </ul>
+    
+</body>
+</html>
+```
+
+Lo anterior espera una entrada llamada "people"
+
+<br>
+
+**Renderizar el EJS a html:**
+```js
+app.get('/ejs', (req,res) => {
+    const data = [
+        {name: 'Leo', lastname: 'Zubiri'},
+        {name: 'Elideth', lastname: 'Zubiri'},
+        {name: 'Leoziel', lastname: 'Zubiri'}
+    ]
+
+    // Mandar la data -> "People"
+    res.render('index.ejs',{people: data});
+});
+```
+
+Al consultar la ruta /ejs:
+![](documentation/img/5.jpeg)
+
+
+### Listado de motores de plantilla:
+1. [EJS](https://ejs.co/)
+2. [PUG](https://pugjs.org/api/getting-started.html) 
+3. [HANDLEBARS](https://handlebarsjs.com/)
+
+---
+
+<br>
+
+## **DATABASE Integration**
+
+Express es flexible con la base de datos de elección, solo se necesita instalar el [modulo de conección](https://expressjs.com/es/guide/database-integration.html) correspondiente.
+
+Existen maneras de generalizar estos modulos por si en algún momento se necesita cambiar de bdd. Por ejemplo: sqlite a mariaDB:
+
+### **Sequelize**
+> Sequelize es un ORM para Nodejs que nos permite manipular varias bases de datos SQL de una manera bastante sencilla, entre estas bases de datos podemos encontrar: mysql, sqlite, postgres, mssql.
+
+[Acerca de Sequelize ->](https://sequelize.org/)
+
+---
+
+<br> <br>
+
+# Alternativa a Express
+Desarrollar del lado del servidor con NodeJS
+
+1. Adonis JS [Consultar->](https://adonisjs.com/)
+2. SailsJS  [ Consultar ->](https://sailsjs.com/)
+3. KOA JS [ Consultar ->](https://koajs.com/#application)
+4. HapiJS [Consultar ->](https://hapi.dev/)
+5. KrakenJS [Consultar -> ](https://krakenjs.com/)
